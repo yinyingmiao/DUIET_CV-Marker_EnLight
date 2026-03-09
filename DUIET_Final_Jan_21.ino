@@ -71,10 +71,8 @@ void loop() {
     }
 
     Serial.println();
-    //   if (values[0] < 10) { // about the light intensity, scenario: too dark
-
-    // Serial.print ("Light condition: bad, dark");
-    // Serial.println (values[0]);
+    
+    // for the light condition setting with a direct brightness mapping function: 
 
     for (int i = 0; i < NUM_LEDS; i++) {
       FastLED.setBrightness(values[0]*0.04*255);
@@ -84,57 +82,17 @@ void loop() {
 
   } 
 
-  // if (values[0] >= 10 & values[0] < 18) { // about the light intensity, scenario: fine
-
-  //   Serial.print ("Light condition: good, balanced");
-  //   Serial.println (values[0]);
-
-  //   for (int i = 0; i < NUM_LEDS; i++) {
-  //     FastLED.setBrightness(i);
-  //     FastLED.show();
-  //     delay(40);
-  //   }
-  // }
-
-  // if (values[0] >= 18) {
-
-  //   Serial.print ("Light condition: bad, bright");
-  //   Serial.println (values[0]);
-
-  //   for (int i = 0; i < NUM_LEDS; i++) {
-  //     FastLED.setBrightness(1.4*i);
-  //     FastLED.show();
-  //     delay(400);
-  //   }
-  // }
-
+  // for the temperature and humidity:
   if (values[1] <= -136 & values[2] <= -136) {
-
     Serial.print ("Temperature and Humidity are both low");
     for (int i = 0; i < NUM_LEDS; i++) { // this is cold colours
       leds[i] = CRGB(3*i, 5*i, 180 + 3*i);
       FastLED.show();
       delay(400);
     }
-    
-    if (values[4] <= 3) { //air quality bad
-
-    Serial.print ("Air quality bad");
-
-    for (int i = 0; i < NUM_LEDS; i++) {
-      
-      leds[i] = CRGB::Black;
-      FastLED.show();
-      delay(400);
-      leds[i] = CRGB(3*i, 5*i, 180 + 3*i);
-      FastLED.show();
-      delay(400);                  
-      }
-    }
   }
 
   if (values[1] > -136 & values[2] > -136) {
-
     Serial.print ("Temperature and Humdity are both high");
     for (int i = 0; i < NUM_LEDS; i++) {
       leds[i] = CRGB(180 + 3*i, 3*i, 5*i);
@@ -142,50 +100,50 @@ void loop() {
       FastLED.show();
       delay(400);
     }
-
-    if (values[4] <= 3) { //air quality bad
-
-    Serial.print ("Air quality bad");
-
-    for (int i = 0; i < NUM_LEDS; i++) {
-      
-      leds[i] = CRGB::Black;
-      FastLED.show();
-      delay(400);
-      leds[i] = CRGB(180 + 3*i, 3*i, 5*i);
-      FastLED.show();
-      delay(400);
-      leds[i] = CRGB::Black;
-      FastLED.show();
-      delay(400);
-      leds[i] = CRGB(180 + 3*i, 3*i, 5*i);
-      FastLED.show();
-      delay(400); 
-      leds[i] = CRGB::Black;
-      FastLED.show();
-      delay(400);
-      leds[i] = CRGB(180 + 3*i, 3*i, 5*i);
-      FastLED.show();
-      delay(400);                   
-    }
   }
-}
+  
+  //for the air quality: 
+  
+    if (values[4] <= 3) { //air quality bad
+      Serial.print ("Air quality bad");
+      for (int i = 0; i < NUM_LEDS; i++) {
+        leds[i] = CRGB::Black;
+        FastLED.show();
+        delay(400);
+        leds[i] = CRGB(180 + 3*i, 3*i, 5*i);
+        FastLED.show();
+        delay(400);
+        leds[i] = CRGB::Black;
+        FastLED.show();
+        delay(400);
+        leds[i] = CRGB(180 + 3*i, 3*i, 5*i);
+        FastLED.show();
+        delay(400); 
+        leds[i] = CRGB::Black;
+        FastLED.show();
+        delay(400);
+        leds[i] = CRGB(180 + 3*i, 3*i, 5*i);
+        FastLED.show();
+        delay(400);                   
+        }
+    }
 
-
+  //for the noise level: 
 
   if (values[3] < 2.5) { // very noisy
 
     Serial.print ("It is very noisy");
 
-    digitalWrite (motorPin[0], HIGH); //vibrating for 1 second (1000)
-    digitalWrite (motorPin[1], HIGH); //vibrating for 1 second (1000)
+    digitalWrite (motorPin[0], HIGH); 
+    digitalWrite (motorPin[1], HIGH); 
     digitalWrite (motorPin[2], HIGH);
     digitalWrite (motorPin[3], HIGH);
     digitalWrite (motorPin[4], HIGH);
+    
     delay (4000);
 
-    digitalWrite (motorPin[0], LOW); //vibrating for 1 second (1000)
-    digitalWrite (motorPin[1], LOW); //vibrating for 1 second (1000)
+    digitalWrite (motorPin[0], LOW); 
+    digitalWrite (motorPin[1], LOW); 
     digitalWrite (motorPin[2], LOW);
     digitalWrite (motorPin[3], LOW);
     digitalWrite (motorPin[4], LOW);
@@ -195,181 +153,23 @@ void loop() {
 
     Serial.print ("It is a bit noisy");
 
-    digitalWrite (motorPin[0], HIGH); //vibrating for 1 second (1000)
+    digitalWrite (motorPin[0], HIGH); 
     digitalWrite (motorPin[2], HIGH);
     digitalWrite (motorPin[4], HIGH);
+    
     delay (2500);
 
-    digitalWrite (motorPin[0], LOW); //vibrating for 1 second (1000)
+    digitalWrite (motorPin[0], LOW); 
     digitalWrite (motorPin[2], LOW);
     digitalWrite (motorPin[4], LOW);
-
   }
 
   if (values[3] >= 2.8) { // quiet
 
     Serial.print ("It is quiet");
-
     digitalWrite (motorPin[2], HIGH);
-
     delay (2000);
-
     digitalWrite (motorPin[2], LOW);
-    
   }
 
-  }
-
-
-
-
-// void processData() {
-
-//   if (values[0] < 10) { // about the light intensity, scenario: too dark
-
-//     Serial.print ("Light condition: bad, dark");
-//     Serial.println (values[0]);
-
-//     for (int i = 0; i < NUM_LEDS; i++) {
-//       FastLED.setBrightness(0.7*i);
-//       FastLED.show();
-//       delay(400);
-//     }
-
-//   } 
-
-//   if (values[0] >= 10 & values[0] < 18) { // about the light intensity, scenario: fine
-
-//     Serial.print ("Light condition: good, balanced");
-//     Serial.println (values[0]);
-
-//     for (int i = 0; i < NUM_LEDS; i++) {
-//       FastLED.setBrightness(i);
-//       FastLED.show();
-//       delay(400);
-//     }
-//   }
-
-//   if (values[0] >= 18) {
-
-//     Serial.print ("Light condition: bad, bright");
-//     Serial.println (values[0]);
-
-//     for (int i = 0; i < NUM_LEDS; i++) {
-//       FastLED.setBrightness(1.4*i);
-//       FastLED.show();
-//       delay(400);
-//     }
-//   }
-
-//   if (values[1] <= -136 & values[2] <= -136) {
-
-//     Serial.print ("Temperature and Humidity are both low");
-//     for (int i = 0; i < NUM_LEDS; i++) { // this is cold colours
-//       leds[i] = CRGB(3*i, 5*i, 180 + 3*i);
-//       FastLED.show();
-//       delay(400);
-//     }
-    
-//     if (values[4] <= 3) { //air quality bad
-
-//     Serial.print ("Air quality bad");
-
-//     for (int i = 0; i < NUM_LEDS; i++) {
-      
-//       leds[i] = CRGB::Black;
-//       FastLED.show();
-//       delay(400);
-//       leds[i] = CRGB(3*i, 5*i, 180 + 3*i);
-//       FastLED.show();
-//       delay(400);                  
-//     }
-//   }
-
-//   if (values[1] > -136 & values[2] > -136) {
-
-//     Serial.print ("Temperature and Humdity are both high");
-//     for (int i = 0; i < NUM_LEDS; i++) {
-//       leds[i] = CRGB(180 + 3*i, 3*i, 5*i);
-//       //FastLED.setBrightness(1.2*i);
-//       FastLED.show();
-//       delay(400);
-//     }
-
-//     if (values[4] <= 3) { //air quality bad
-
-//     Serial.print ("Air quality bad");
-
-//     for (int i = 0; i < NUM_LEDS; i++) {
-      
-//       leds[i] = CRGB::Black;
-//       FastLED.show();
-//       delay(400);
-//       leds[i] = CRGB(180 + 3*i, 3*i, 5*i);
-//       FastLED.show();
-//       delay(400);
-//       leds[i] = CRGB::Black;
-//       FastLED.show();
-//       delay(400);
-//       leds[i] = CRGB(180 + 3*i, 3*i, 5*i);
-//       FastLED.show();
-//       delay(400); 
-//       leds[i] = CRGB::Black;
-//       FastLED.show();
-//       delay(400);
-//       leds[i] = CRGB(180 + 3*i, 3*i, 5*i);
-//       FastLED.show();
-//       delay(400);                   
-//     }
-//   }
-//   }
-
-
-
-//   if (values[3] < 2.5) { // very noisy
-
-//     Serial.print ("It is very noisy");
-
-//     digitalWrite (motorPin[0], HIGH); //vibrating for 1 second (1000)
-//     digitalWrite (motorPin[1], HIGH); //vibrating for 1 second (1000)
-//     digitalWrite (motorPin[2], HIGH);
-//     digitalWrite (motorPin[3], HIGH);
-//     digitalWrite (motorPin[4], HIGH);
-//     delay (4000);
-
-//     digitalWrite (motorPin[0], LOW); //vibrating for 1 second (1000)
-//     digitalWrite (motorPin[1], LOW); //vibrating for 1 second (1000)
-//     digitalWrite (motorPin[2], LOW);
-//     digitalWrite (motorPin[3], LOW);
-//     digitalWrite (motorPin[4], LOW);
-//   }
-
-//   if (values[3] >= 2.5 & values[3] < 2.8) { //a bit noisy
-
-//     Serial.print ("It is a bit noisy");
-
-//     digitalWrite (motorPin[0], HIGH); //vibrating for 1 second (1000)
-//     digitalWrite (motorPin[2], HIGH);
-//     digitalWrite (motorPin[4], HIGH);
-//     delay (2500);
-
-//     digitalWrite (motorPin[0], LOW); //vibrating for 1 second (1000)
-//     digitalWrite (motorPin[2], LOW);
-//     digitalWrite (motorPin[4], LOW);
-
-//   }
-
-//   if (values[3] >= 2.8) { // quiet
-
-//     Serial.print ("It is quiet");
-
-//     digitalWrite (motorPin[2], HIGH);
-
-//     delay (2000);
-
-//     digitalWrite (motorPin[2], LOW);
-    
-//   }
-
-//   }
-// }
+}
