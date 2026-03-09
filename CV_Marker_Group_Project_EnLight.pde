@@ -6,7 +6,7 @@
 // Integrated by Yinying Miao for the CV Marker detection, tracking, and processing.
 // Supported by Olaf Adan with suggestions and small sample codes.
 
-// V2 integration made on Januarary 14th, 2024, by Yinying Miao for Group Project DUIET.
+// V2 integration made on January 14th, 2024, by Yinying Miao for Group Project DUIET.
 // Reference for processing port write https://processing.org/reference/libraries/serial/Serial_write_.html
 // Reference for sending an array of values: https://gist.github.com/atduskgreg/1349176
 // Processing creating table: https://processing.org/reference/saveTable_.html
@@ -39,10 +39,9 @@ int camHeight = 720;
 
 float touchThreshold = 0.025; //unit: m
 
-float paperWidthOnScreen = 490; //unit: mm // not sure about this line - ASK OLAF
+float paperWidthOnScreen = 490; //unit: mm 
 float markerWidth = 20; //unit: mm
 
-//ASK OLAF - not sure about these two following lines: 
 float calibgridWidth = 199; //unit:mm
 float calibgridHeight = 197; //unit:mm
 
@@ -100,7 +99,7 @@ void setup() {
   table.addColumn ("Noise");
   table.addColumn ("Air Quality");
 
-  saveTable (table, "/Users/michelle_myy__/Downloads/DUIET_Lab2/Processing/data/DUIET_final.csv");
+  saveTable (table, ".../Processing/data/DUIET_final.csv");
 }
 
 void draw() {
